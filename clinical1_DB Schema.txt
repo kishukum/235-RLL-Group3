@@ -1,0 +1,63 @@
+
+CREATE DATABASE CLINICAL1;
+USE CLINICAL1;
+
+
+CREATE TABLE `appointment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `appointment_at` datetime(6) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `doctor_id` int DEFAULT NULL,
+  `patient_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKoeb98n82eph1dx43v3y2bcmsl` (`doctor_id`),
+  KEY `FK4apif2ewfyf14077ichee8g06` (`patient_id`),
+  CONSTRAINT `FK4apif2ewfyf14077ichee8g06` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`),
+  CONSTRAINT `FKoeb98n82eph1dx43v3y2bcmsl` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `doctor` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `age` int DEFAULT NULL,
+  `contact_number` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `specialization` varchar(255) DEFAULT NULL,
+  `visitations` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `patient` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `age` int DEFAULT NULL,
+  `contact_number` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `pharmacy` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `quantity_available` int NOT NULL,
+  `tablet_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKrp1b8kgp6fgrwdj7stfk8s6by` (`tablet_id`),
+  CONSTRAINT `FKrp1b8kgp6fgrwdj7stfk8s6by` FOREIGN KEY (`tablet_id`) REFERENCES `prescription` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `prescription` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `appointment_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKba3shvghb1nrydjy9khc9c6a7` (`appointment_id`),
+  CONSTRAINT `FKba3shvghb1nrydjy9khc9c6a7` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
